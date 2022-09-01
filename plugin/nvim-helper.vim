@@ -6,7 +6,7 @@ endif
 " The path to the binary that was created out of 'cargo build' or
 " 'cargo build --release". This will generally be 'target/release/name'
 " TODO: fix path
-let s:bin = 'nvim-helper'
+let s:bin = '/home/fys/fast/source/nvim-helper/target/debug/nvim-helper'
 
 " Entry point. Initialize RPC. If it succeeds, then attach commands to the `rpcnotify` invocations.
 function! s:connect()
@@ -37,13 +37,19 @@ endfunction
 
 function! s:configureCommands()
   command! Clippy :call s:clippy()
+  command! Test :call s:test()
 endfunction
 
 " Constants for RPC messages.
 let s:Clippy = "clippy"
+let s:Test = "trail_space"
 
 function! s:clippy(...)
   call rpcnotify(s:calculatorJobId, s:Clippy)
+endfunction
+
+function! s:test( ... )
+  call rpcnotify(s:calculatorJobId, s:Test)
 endfunction
 
 call s:connect()
